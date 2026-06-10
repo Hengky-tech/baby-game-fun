@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baby Game Fun - Permainan untuk Bayi</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- LOGIN PAGE -->
+    <div id="loginPage" class="page active">
+        <div class="login-container">
+            <h1>🎮 Baby Game Fun</h1>
+            <h2>MENU LOGIN</h2>
+            
+            <form id="loginForm" onsubmit="login(event)">
+                <input type="email" id="email" placeholder="Alamat email" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit">LOGIN</button>
+            </form>
+            
+            <p class="register-link">
+                Belum punya akses? <a href="javascript:void(0)" onclick="toggleRegister()">Registrasi disini</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- REGISTER PAGE -->
+    <div id="registerPage" class="page">
+        <div class="login-container">
+            <h2>DAFTAR AKUN</h2>
+            
+            <form id="registerForm" onsubmit="register(event)">
+                <input type="text" id="regName" placeholder="Nama" required>
+                <input type="email" id="regEmail" placeholder="Alamat email" required>
+                <input type="password" id="regPassword" placeholder="Password" required>
+                <input type="password" id="regConfirmPassword" placeholder="Konfirmasi Password" required>
+                <button type="submit">DAFTAR</button>
+            </form>
+            
+            <p class="register-link">
+                Sudah punya akses? <a href="javascript:void(0)" onclick="toggleRegister()">Login disini</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- MAIN MENU PAGE -->
+    <div id="menuPage" class="page">
+        <div class="menu-container">
+            <div class="header-menu">
+                <button class="menu-btn" onclick="toggleMenuOptions()">☰ Gambar menu</button>
+                <h1>🎨 duniA ceRiTA</h1>
+                <div id="menuOptions" class="menu-options hidden">
+                    <button onclick="showProfile()">👤 Profil</button>
+                    <button onclick="showCredits()">🏆 Skor kredit</button>
+                    <button onclick="showItems()">🎁 Keranjang item</button>
+                    <button onclick="logout()">🚪 Logout</button>
+                </div>
+            </div>
+
+            <div class="games-grid">
+                <div class="game-card" onclick="startGame('shapes')">
+                    <div class="game-image">🍎</div>
+                    <p class="game-title">Gambar apel</p>
+                    <p class="game-subtitle">Cocokan Gambar</p>
+                </div>
+
+                <div class="game-card" onclick="startGame('objects')">
+                    <div class="game-image">🎈</div>
+                    <p class="game-title">Gambar keranjang barang</p>
+                    <p class="game-subtitle">Rapikan Barang</p>
+                </div>
+
+                <div class="game-card" onclick="startGame('animals')">
+                    <div class="game-image">🦁</div>
+                    <p class="game-title">Gambar mini zoo</p>
+                    <p class="game-subtitle">Tebak Hewan</p>
+                </div>
+
+                <div class="game-card" onclick="startGame('fruits')">
+                    <div class="game-image">🍌</div>
+                    <p class="game-title">Gambar kebun bunga</p>
+                    <p class="game-subtitle">Kebun Ajaib</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GAME PAGES -->
+    <!-- Game 1: Matching Shapes -->
+    <div id="gameShapes" class="page">
+        <div class="game-container">
+            <div class="game-header">
+                <button onclick="backToMenu()" class="back-btn">← Kembali</button>
+                <h2>🍎 Cocokan Gambar</h2>
+                <div class="score-display">Skor: <span id="shapesScore">0</span></div>
+            </div>
+            <div class="game-content">
+                <p class="instruction">Klik gambar yang sama! 🎯</p>
+                <div id="shapesBoard" class="shapes-board"></div>
+                <button onclick="resetShapesGame()" class="reset-btn">🔄 Ulang</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game 2: Object Organization -->
+    <div id="gameObjects" class="page">
+        <div class="game-container">
+            <div class="game-header">
+                <button onclick="backToMenu()" class="back-btn">← Kembali</button>
+                <h2>🎈 Rapikan Barang</h2>
+                <div class="score-display">Skor: <span id="objectsScore">0</span></div>
+            </div>
+            <div class="game-content">
+                <p class="instruction">Seret barang ke dalam keranjang! 🧺</p>
+                <div class="objects-game">
+                    <div id="objectsContainer" class="objects-container"></div>
+                    <div id="basket" class="basket">🧺</div>
+                </div>
+                <button onclick="resetObjectsGame()" class="reset-btn">🔄 Ulang</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game 3: Animal Guessing -->
+    <div id="gameAnimals" class="page">
+        <div class="game-container">
+            <div class="game-header">
+                <button onclick="backToMenu()" class="back-btn">← Kembali</button>
+                <h2>🦁 Tebak Hewan</h2>
+                <div class="score-display">Skor: <span id="animalsScore">0</span></div>
+            </div>
+            <div class="game-content">
+                <p class="instruction">Dengarkan suara dan pilih hewan yang benar! 🔊</p>
+                <div id="animalDisplay" class="animal-display"></div>
+                <button id="soundBtn" class="sound-btn">🔊 Putar Suara</button>
+                <div id="animalChoices" class="animal-choices"></div>
+                <button onclick="resetAnimalsGame()" class="reset-btn">🔄 Ulang</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game 4: Magic Fruits -->
+    <div id="gameFruits" class="page">
+        <div class="game-container">
+            <div class="game-header">
+                <button onclick="backToMenu()" class="back-btn">← Kembali</button>
+                <h2>🍌 Kebun Ajaib</h2>
+                <div class="score-display">Skor: <span id="fruitsScore">0</span></div>
+            </div>
+            <div class="game-content">
+                <p class="instruction">Klik pot tanaman untuk mendapatkan hadiah! 🎁</p>
+                <div id="fruitsBoard" class="fruits-board"></div>
+                <button onclick="resetFruitsGame()" class="reset-btn">🔄 Ulang</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROFILE PAGE -->
+    <div id="profilePage" class="page">
+        <div class="profile-container">
+            <button onclick="backToMenu()" class="back-btn">← Kembali</button>
+            <h2>👤 Profil Pengguna</h2>
+            <div class="profile-info">
+                <div class="profile-avatar">👶</div>
+                <p><strong>Nama:</strong> <span id="profileName"></span></p>
+                <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+                <p><strong>Total Skor:</strong> <span id="profileScore">0</span></p>
+                <button onclick="toggleResetPassword()" class="btn-secondary">🔐 Reset Password</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CREDITS PAGE -->
+    <div id="creditsPage" class="page">
+        <div class="credits-container">
+            <button onclick="backToMenu()" class="back-btn">← Kembali</button>
+            <h2>🏆 Skor Kredit</h2>
+            <div class="credits-list">
+                <div class="credit-item">
+                    <span>Es Krim stok 5</span>
+                    <span class="credit-price">20.000 skor kredit</span>
+                </div>
+                <div class="credit-item">
+                    <span>Snack Taro stok 5</span>
+                    <span class="credit-price">15.000 skor kredit</span>
+                </div>
+                <div class="credit-item">
+                    <span>Silverqueen stok 2</span>
+                    <span class="credit-price">50.000 skor kredit</span>
+                </div>
+                <div class="credit-item">
+                    <span>Uang 5 ribu stok 2</span>
+                    <span class="credit-price">55.000 skor kredit</span>
+                </div>
+                <div class="credit-item">
+                    <span>Uang 10 ribu stok 1</span>
+                    <span class="credit-price">120.000 skor kredit</span>
+                </div>
+                <div class="credit-item">
+                    <span>Uang 20 ribu stok 1</span>
+                    <span class="credit-price">300.000 skor kredit</span>
+                </div>
+                <div class="credit-item">
+                    <span>Uang 50 ribu stok 1</span>
+                    <span class="credit-price">1.000.000 skor kredit</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ITEMS PAGE -->
+    <div id="itemsPage" class="page">
+        <div class="items-container">
+            <button onclick="backToMenu()" class="back-btn">← Kembali</button>
+            <h2>🎁 Keranjang Item</h2>
+            <div id="cartItems" class="cart-items">
+                <p class="empty-cart">Keranjang Anda kosong 🛒</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
