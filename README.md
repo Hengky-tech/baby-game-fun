@@ -1,147 +1,213 @@
-# 🎮 Baby Game Fun - Permainan Interaktif untuk Bayi
+# 🎮 Baby Game Fun - Permainan Interaktif untuk Bayi (Update v2.0)
 
-## 📖 Deskripsi Proyek
-Baby Game Fun adalah aplikasi web interaktif yang dirancang khusus untuk anak-anak di bawah 5 tahun. Aplikasi ini menyediakan 4 permainan edukatif yang menyenangkan dan menarik dengan antarmuka yang colorful dan mudah digunakan.
+## ✨ Fitur Terbaru (v2.0)
 
-## 🎯 Fitur Utama
+### 🔐 Login System
+- **Dual Login**: Player dan Admin login terpisah
+- **Admin Dashboard**: Login khusus untuk manajemen
+- Admin Email: `admin@babygamefun.com`
+- Admin Password: `admin123`
 
-### 🎮 4 Permainan Interaktif:
+### 👥 Admin Dashboard
+1. **Players Management**
+   - Melihat daftar semua player
+   - Lihat detail profil player lain
+   - Melihat item di keranjang player
+   - Cek history penukaran item
 
-1. **🍎 Cocokan Gambar (Shapes Matching)**
-   - Cocokkan gambar atau emoji yang sama
-   - Grid 4x4 dengan animasi menarik
-   - Reward poin setiap kali berhasil mencocokkan
-   - Suara dan visual feedback untuk setiap aksi
+2. **Items Management**
+   - Tambah item baru
+   - Restock/update jumlah stok
+   - Hapus item yang tidak digunakan
+   - Auto-sync stok ke semua player
 
-2. **🎈 Rapikan Barang (Objects Organization)**
-   - Drag and drop barang ke dalam keranjang
-   - Gameplay yang intuitif untuk melatih motorik halus
-   - Animasi celebration saat berhasil
-   - Sistem poin progresif
+3. **Exchange History**
+   - Lihat riwayat penukaran item
+   - Track siapa yang menukar apa
+   - Informasi tanggal dan harga
 
-3. **🦁 Tebak Hewan (Animal Guessing)**
-   - Dengarkan suara hewan (text-to-speech)
-   - Pilih hewan yang benar dari 4 pilihan
-   - Pembelajaran interaktif tentang hewan
-   - Feedback visual dan audio
+### 💰 Sistem Skor Kredit
 
-4. **🍌 Kebun Ajaib (Magic Fruits)**
-   - Klik pot untuk mendapatkan hadiah buah
-   - Permainan yang fun dan tidak beraturan
-   - Animasi pop-out yang menghibur
-   - Random reward system
+#### Cara Mendapatkan Skor:
+- **Game 1 (Cocokan Gambar)**: 10 skor per pasangan
+- **Game 2 (Rapikan Barang)**: 12 skor per item
+- **Game 3 (Tebak Hewan)**: 15 skor per jawaban benar
+- **Game 4 (Kebun Ajaib)**: 10-30 skor per klik (random)
 
-### 👤 Fitur Pengguna:
-- Sistem login dan registrasi
-- Profil pengguna personal
-- Sistem poin/skor per permainan
-- Keranjang reward dan shop
-- Pelestarian data menggunakan LocalStorage
+#### Challenge Sesi (SESI 1-4):
+- **SESI 1 (Soal 1-50)**: 10 skor kredit per soal
+- **SESI 2 (Soal 1-50)**: 20 skor kredit per soal
+- **SESI 3 (Soal 1-50)**: 50 skor kredit per soal
+- **SESI 4 (Soal 1-20)**: Sistem khusus dengan harga perbenih dan waktu tanam
 
-## 🛠 Teknologi yang Digunakan
-- **HTML5** - Struktur dan semantik
-- **CSS3** - Styling dengan animasi dan gradien
-- **JavaScript (Vanilla)** - Logika game dan interaksi
-- **LocalStorage** - Penyimpanan data pengguna
+#### Bonus Spesial:
+- **Login Harian**: 10.000 skor kredit (1x sehari)
+- **Ulang Tahun**: 10.000 skor kredit bonus (otomatis saat login di tanggal ultah)
+
+### 🛒 Item Shop & Exchange
+
+#### Default Items:
+1. Es Krim - 20.000 skor kredit (Stok: 5)
+2. Snack Taro - 15.000 skor kredit (Stok: 5)
+3. Silverqueen - 50.000 skor kredit (Stok: 2)
+4. Uang 5 ribu - 55.000 skor kredit (Stok: 2)
+5. Uang 10 ribu - 120.000 skor kredit (Stok: 1)
+6. Uang 20 ribu - 300.000 skor kredit (Stok: 1)
+7. Uang 50 ribu - 1.000.000 skor kredit (Stok: 1)
+
+#### Flow Penukaran:
+1. Player melihat item di "Skor Kredit"
+2. Klik "Tambah ke Keranjang"
+3. Buka "Keranjang Item"
+4. Klik "Tukar" untuk menukar dengan skor
+5. Stok otomatis berkurang di admin & player lain
+
+### 🔄 Real-time Sync
+- Semua player share data yang sama via LocalStorage
+- Jika admin update stok, semua player melihat perubahan
+- Jika player menukar item, stok berkurang untuk semua
+- Exchange history tercatat otomatis
+
+## 📋 4 Permainan Menyenangkan
+
+1. **🍎 Cocokan Gambar** - Matching game dengan 16 kartu
+2. **🎈 Rapikan Barang** - Drag & drop barang ke keranjang
+3. **🦁 Tebak Hewan** - Dengarkan suara, tebak hewan
+4. **🍌 Kebun Ajaib** - Klik pot, dapat random reward
+
+## 🛠 Teknologi
+- **HTML5** - Struktur
+- **CSS3** - Styling & Animasi
+- **JavaScript Vanilla** - Logika & Interaksi
+- **LocalStorage** - Sinkronisasi data
 - **Web Audio API** - Feedback audio
-- **Speech Synthesis API** - Text-to-speech untuk suara hewan
+- **Speech Synthesis API** - Text-to-speech
 
 ## 📁 Struktur File
 ```
 baby-game-fun/
-├── index.html        # Halaman utama dengan semua struktur
-├── styles.css        # Styling dan animasi
-├── script.js         # Logika game dan interaksi
-└── README.md         # Dokumentasi proyek
+├── index.html      # Semua halaman (Player + Admin)
+├── styles.css      # Styling komprehensif
+├── script.js       # Logika game & admin
+└── README.md       # Dokumentasi
 ```
-
-## 🎨 Desain & UX
-- **Color Scheme**: Warna-warna cerah dan menarik untuk anak-anak
-- **Animasi**: Smooth animations untuk engagement
-- **Typography**: Font yang playful dan mudah dibaca
-- **Responsive**: Optimal di desktop dan mobile
-- **Aksesibilitas**: Simple clicks dan intuitive navigation
 
 ## 🚀 Cara Menggunakan
 
-1. **Buka aplikasi di browser**
-   ```
-   Buka file index.html di browser modern (Chrome, Firefox, Safari, Edge)
-   ```
+### Login sebagai Player:
+1. Buka aplikasi
+2. Pilih tab "👶 Player"
+3. Daftar akun baru atau login
+4. Pilih dan mainkan game
+5. Kumpulkan skor kredit
+6. Tukar dengan item di Keranjang
 
-2. **Registrasi akun baru**
-   - Klik "Registrasi disini"
-   - Masukkan nama, email, dan password
-   - Klik tombol DAFTAR
+### Login sebagai Admin:
+1. Buka aplikasi
+2. Pilih tab "👨‍💼 Admin"
+3. Email: `admin@babygamefun.com`
+4. Password: `admin123`
+5. Kelola player, item, dan exchange
 
-3. **Login**
-   - Masukkan email dan password Anda
-   - Klik tombol LOGIN
+## 👨‍💻 Fitur Admin Detail
 
-4. **Pilih permainan**
-   - Dari menu utama, pilih salah satu dari 4 permainan
-   - Ikuti petunjuk di setiap permainan
-   - Kumpulkan poin dan naik level
+### Tab Players
+- Lihat semua player terdaftar
+- Total score setiap player
+- Jumlah kredit yang dimiliki
+- Berapa item di keranjang
+- Klik "Lihat Detail" untuk melihat:
+  - Profil lengkap
+  - Daftar item di keranjang
+  - Siap untuk disiapkan barangnya
 
-5. **Kelola akun**
-   - Klik tombol "☰ Gambar menu" untuk mengakses
-   - Lihat Profil, Skor Kredit, Keranjang Item
-   - Ubah password atau Logout
+### Tab Manage Items
+- Form tambah item baru
+- Input nama, harga, stok awal
+- List item dengan aksi:
+  - Update stok (real-time sync)
+  - Hapus item
+- Perubahan langsung terlihat di player
 
-## 🎮 Cara Bermain Setiap Game
+### Tab Exchanges
+- History semua penukaran
+- Info player yang menukar
+- Item yang ditukar
+- Harga dan tanggal penukaran
+- Untuk tracking & analisis
 
-### Game 1: Cocokan Gambar 🍎
-- Lihat kartu-kartu yang bersebelahan
-- Klik 2 kartu dengan gambar yang sama
-- Semakin cepat mencocokkan, semakin banyak poin
-- Permainan selesai saat semua kartu tercocokkan
+## 💾 Data Storage
+- **Users**: Profil player, password, score, kredit
+- **Items**: Daftar item, harga, stok
+- **Exchanges**: History penukaran, player, item, tanggal
+- **Semua tersimpan di LocalStorage** - Tidak perlu server
 
-### Game 2: Rapikan Barang 🎈
-- Seret gambar barang ke dalam keranjang (🧺)
-- Gerakkan mouse/touch ke arah keranjang
-- Lepas untuk memasukkan barang
-- Dapatkan poin untuk setiap barang yang berhasil
+## 🔄 Multi-Device Sync
 
-### Game 3: Tebak Hewan 🦁
-- Klik tombol "🔊 Putar Suara"
-- Dengarkan suara hewan
-- Pilih gambar hewan yang sesuai dengan suara
-- Lanjut ke hewan berikutnya jika benar
+### Skenario:
+- Player A di Device 1 menukar item
+- Stok berkurang untuk Player B di Device 2
+- Admin di Device 3 update stok
+- Semua player melihat update
 
-### Game 4: Kebun Ajaib 🍌
-- Klik pot-pot tanaman (🪴)
-- Setiap klik akan menghasilkan buah atau hadiah
-- Dapatkan random poin setiap klik
-- Semakin banyak klik, semakin banyak reward
+### Cara Kerjanya:
+- Data di-save di LocalStorage browser
+- Setiap perubahan di-sync otomatis
+- Load data dari LocalStorage saat login
+- Update UI real-time
 
-## 📊 Sistem Poin
-- **Cocokan Gambar**: 10 poin per pasangan
-- **Rapikan Barang**: 12 poin per item
-- **Tebak Hewan**: 15 poin per jawaban benar
-- **Kebun Ajaib**: 10-30 poin per klik (random)
+## 🎯 Workflow Rekomendasi Admin
 
-## 💾 Penyimpanan Data
-- Semua data tersimpan di browser (LocalStorage)
-- Data tidak hilang meski menutup browser
-- Untuk menghapus data, bisa via console atau clear browser data
+1. **Setiap pagi**: Cek player baru di tab Players
+2. **Update stok**: Jika ada item yang habis, restock di tab Items
+3. **Monitor exchange**: Lihat siapa yang menukar di tab Exchanges
+4. **Siapkan hadiah**: Lihat item apa yang sering ditukar
+5. **Tambah item**: Jika ada permintaan khusus, tambah item baru
 
-## 🐛 Known Issues
-- Speech Synthesis bisa berbeda tergantung browser
-- Audio API mungkin tidak bekerja di beberapa browser lama
+## ⚙️ Konfigurasi
 
-## 🔮 Fitur di Masa Depan
-- Lebih banyak permainan
-- Level kesulitan yang meningkat
-- Sistem achievement/badge
-- Multiplayer mode
-- Penyimpanan cloud
-- Integrasi dengan parent control
+### Ubah Admin Password:
+Edit di `script.js`:
+```javascript
+const ADMIN_PASSWORD = 'admin123';
+```
+
+### Ubah Item Default:
+Edit di `script.js` function `getDefaultItems()`
+
+### Ubah Bonus Login:
+Edit di `script.js` function `login()`:
+```javascript
+user.totalCredit = (user.totalCredit || 0) + 10000;
+```
+
+## 🐛 Testing
+
+### Test Player:
+- Email: `player@test.com`
+- Password: `123456`
+
+### Test Flow:
+1. Daftar akun player
+2. Login & main game
+3. Kumpulkan skor
+4. Tambah item ke keranjang
+5. Tukar item
+6. Login admin cek history
+7. Update stok item
+8. Login player lain, lihat perubahan
+
+## 📈 Fitur Masa Depan
+- Backend server untuk multi-user real-time
+- Database untuk persistensi data
+- Achievement system
+- Leaderboard
+- Multiplayer games
+- Parent control panel
+- Analytics dashboard
 
 ## 📝 License
-Gratis untuk digunakan dan dikembangkan lebih lanjut
-
-## 👨‍💻 Pengembang
-Dikembangkan oleh: Hengky-tech
+Gratis untuk digunakan dan dikembangkan
 
 ---
 

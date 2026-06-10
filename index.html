@@ -13,14 +13,22 @@
             <h1>🎮 Baby Game Fun</h1>
             <h2>MENU LOGIN</h2>
             
+            <div class="login-tabs">
+                <button class="tab-btn active" onclick="switchLoginTab('player')">👶 Player</button>
+                <button class="tab-btn" onclick="switchLoginTab('admin')">👨‍💼 Admin</button>
+            </div>
+            
             <form id="loginForm" onsubmit="login(event)">
                 <input type="email" id="email" placeholder="Alamat email" required>
                 <input type="password" id="password" placeholder="Password" required>
                 <button type="submit">LOGIN</button>
             </form>
             
-            <p class="register-link">
+            <p class="register-link" id="playerRegisterLink">
                 Belum punya akses? <a href="javascript:void(0)" onclick="toggleRegister()">Registrasi disini</a>
+            </p>
+            <p class="register-link" id="adminRegisterLink" style="display:none;">
+                <a href="javascript:void(0)" onclick="alert('Hubungi administrator untuk membuat akun admin')">Hubungi administrator</a>
             </p>
         </div>
     </div>
@@ -48,7 +56,7 @@
     <div id="menuPage" class="page">
         <div class="menu-container">
             <div class="header-menu">
-                <button class="menu-btn" onclick="toggleMenuOptions()">☰ Gambar menu</button>
+                <button class="menu-btn" onclick="toggleMenuOptions()">☰ Menu</button>
                 <h1>🎨 duniA ceRiTA</h1>
                 <div id="menuOptions" class="menu-options hidden">
                     <button onclick="showProfile()">👤 Profil</button>
@@ -82,6 +90,59 @@
                     <p class="game-title">Gambar kebun bunga</p>
                     <p class="game-subtitle">Kebun Ajaib</p>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN DASHBOARD -->
+    <div id="adminDashboard" class="page">
+        <div class="admin-container">
+            <div class="admin-header">
+                <button onclick="logoutAdmin()" class="logout-admin-btn">🚪 Logout</button>
+                <h1>👨‍💼 Admin Dashboard</h1>
+                <div class="admin-stats">
+                    <div class="stat-card">
+                        <span>👥 Players</span>
+                        <span id="totalPlayers">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <span>🎁 Items</span>
+                        <span id="totalItems">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-tabs">
+                <button class="admin-tab-btn active" onclick="switchAdminTab('players')">👥 Players</button>
+                <button class="admin-tab-btn" onclick="switchAdminTab('items')">🎁 Manage Items</button>
+                <button class="admin-tab-btn" onclick="switchAdminTab('exchanges')">💳 Exchanges</button>
+            </div>
+
+            <!-- Players Tab -->
+            <div id="playersTab" class="admin-tab-content active">
+                <h2>Daftar Players</h2>
+                <div id="playersList" class="players-list"></div>
+            </div>
+
+            <!-- Items Tab -->
+            <div id="itemsTab" class="admin-tab-content">
+                <h2>Manajemen Item</h2>
+                <div class="items-management">
+                    <div class="add-item-form">
+                        <h3>Tambah Item Baru</h3>
+                        <input type="text" id="itemName" placeholder="Nama item" required>
+                        <input type="number" id="itemPrice" placeholder="Harga (skor kredit)" required>
+                        <input type="number" id="itemStock" placeholder="Stok awal" required>
+                        <button onclick="addNewItem()" class="btn-add-item">➕ Tambah Item</button>
+                    </div>
+                    <div id="itemsManagementList" class="items-management-list"></div>
+                </div>
+            </div>
+
+            <!-- Exchanges Tab -->
+            <div id="exchangesTab" class="admin-tab-content">
+                <h2>History Penukaran Item</h2>
+                <div id="exchangesList" class="exchanges-list"></div>
             </div>
         </div>
     </div>
@@ -166,6 +227,7 @@
                 <p><strong>Nama:</strong> <span id="profileName"></span></p>
                 <p><strong>Email:</strong> <span id="profileEmail"></span></p>
                 <p><strong>Total Skor:</strong> <span id="profileScore">0</span></p>
+                <p><strong>Bonus Login Hari Ini:</strong> <span id="loginBonus">10.000</span></p>
                 <button onclick="toggleResetPassword()" class="btn-secondary">🔐 Reset Password</button>
             </div>
         </div>
@@ -175,36 +237,35 @@
     <div id="creditsPage" class="page">
         <div class="credits-container">
             <button onclick="backToMenu()" class="back-btn">← Kembali</button>
-            <h2>🏆 Skor Kredit</h2>
-            <div class="credits-list">
-                <div class="credit-item">
-                    <span>Es Krim stok 5</span>
-                    <span class="credit-price">20.000 skor kredit</span>
+            <h2>🏆 Cara Mendapatkan Skor Kredit</h2>
+            <div class="credits-info">
+                <div class="credit-section">
+                    <h3>📋 Menyelesaikan Soal dengan Rincian:</h3>
+                    <ul>
+                        <li><strong>SESI 1 soal 1-50:</strong> personal yg diselesaikan akan mendapatkan <strong>10 skor kredit</strong></li>
+                        <li><strong>SESI 2 soal 1-50:</strong> personal yg diselesaikan akan mendapatkan <strong>20 skor kredit</strong></li>
+                        <li><strong>SESI 3 soal 1-50:</strong> personal yg diselesaikan akan mendapatkan <strong>50 skor kredit</strong></li>
+                        <li><strong>SESI 4 soalnya ada 20:</strong> dan akan ada sedikit perbedaan yg akan dijelaskan dibawah ini</li>
+                    </ul>
                 </div>
-                <div class="credit-item">
-                    <span>Snack Taro stok 5</span>
-                    <span class="credit-price">15.000 skor kredit</span>
+                <div class="credit-section">
+                    <h3>🎯 Rincian khusus untuk SESI 4:</h3>
+                    <ul>
+                        <li><strong>Soal no 1-5:</strong> harga perbenih adalah 25, waktu tanam 5 menit setiap benih, waktu panen dapat 70 skor kredit</li>
+                        <li><strong>Soal no 6-10:</strong> harga perbenih adalah 100, waktu tanam 30 menit setiap benih, waktu panen dapat 150 skor kredit</li>
+                        <li><strong>Soal no 11-15:</strong> harga perbenih adalah 200, waktu tanam 60 menit setiap benih, waktu panen dapat 260 skor kredit</li>
+                        <li><strong>Soal no 16-20:</strong> harga perbenih adalah 400, waktu tanam 300 menit setiap benih, waktu panen dapat 480 skor kredit</li>
+                    </ul>
                 </div>
-                <div class="credit-item">
-                    <span>Silverqueen stok 2</span>
-                    <span class="credit-price">50.000 skor kredit</span>
+                <div class="credit-section bonus">
+                    <h3>🎁 Bonus Spesial</h3>
+                    <p>Ada bonus skor kredit bagi yg berulang tahun di tanggal itu login sebesar <strong>10.000 skor kredit</strong></p>
                 </div>
-                <div class="credit-item">
-                    <span>Uang 5 ribu stok 2</span>
-                    <span class="credit-price">55.000 skor kredit</span>
-                </div>
-                <div class="credit-item">
-                    <span>Uang 10 ribu stok 1</span>
-                    <span class="credit-price">120.000 skor kredit</span>
-                </div>
-                <div class="credit-item">
-                    <span>Uang 20 ribu stok 1</span>
-                    <span class="credit-price">300.000 skor kredit</span>
-                </div>
-                <div class="credit-item">
-                    <span>Uang 50 ribu stok 1</span>
-                    <span class="credit-price">1.000.000 skor kredit</span>
-                </div>
+            </div>
+            
+            <div class="items-shop">
+                <h2>🛒 Daftar Item yang Tersedia</h2>
+                <div id="shopItems" class="shop-items"></div>
             </div>
         </div>
     </div>
@@ -214,9 +275,21 @@
         <div class="items-container">
             <button onclick="backToMenu()" class="back-btn">← Kembali</button>
             <h2>🎁 Keranjang Item</h2>
+            <div class="cart-info">
+                <p>Skor Kredit Anda: <strong><span id="currentCredit">0</span></strong></p>
+            </div>
             <div id="cartItems" class="cart-items">
                 <p class="empty-cart">Keranjang Anda kosong 🛒</p>
             </div>
+        </div>
+    </div>
+
+    <!-- PLAYER DETAIL MODAL (Admin) -->
+    <div id="playerDetailModal" class="modal hidden">
+        <div class="modal-content">
+            <button onclick="closePlayerDetail()" class="close-modal">✕</button>
+            <h2>👤 Detail Player</h2>
+            <div id="playerDetailContent" class="player-detail-content"></div>
         </div>
     </div>
 
